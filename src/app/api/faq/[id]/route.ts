@@ -1,18 +1,132 @@
-import { NextRequest, NextResponse } from 'next/server';
+// import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  try {
-    const { id } = params;
+// export async function GET(
+//   request: NextRequest,
+//   { params }: { params: { id: string } }
+// ) {
+//   try {
+//     const { id } = params;
     
+//     // Forward the request to the backend
+//     const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+//     const response = await fetch(`${API_BASE_URL}/api/faq/${id}`, {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     });
+
+//     const data = await response.json();
+
+//     if (!response.ok) {
+//       return NextResponse.json(
+//         { message: data.message || 'Failed to fetch FAQ' },
+//         { status: response.status }
+//       );
+//     }
+
+//     return NextResponse.json(data);
+//   } catch (error) {
+//     console.error('FAQ API error:', error);
+//     return NextResponse.json(
+//       { message: 'Internal server error' },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+// export async function PUT(
+//   request: NextRequest,
+//   { params }: { params: { id: string } }
+// ) {
+//   try {
+//     const { id } = params;
+//     const body = await request.json();
+//     const authHeader = request.headers.get('authorization');
+
+//     // Forward the request to the backend
+//     const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+//     const response = await fetch(`${API_BASE_URL}/api/faq/${id}`, {
+//       method: 'PUT',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         ...(authHeader && { 'Authorization': authHeader }),
+//       },
+//       body: JSON.stringify(body),
+//     });
+
+//     const data = await response.json();
+
+//     if (!response.ok) {
+//       return NextResponse.json(
+//         { message: data.message || 'Failed to update FAQ' },
+//         { status: response.status }
+//       );
+//     }
+
+//     return NextResponse.json(data);
+//   } catch (error) {
+//     console.error('FAQ API error:', error);
+//     return NextResponse.json(
+//       { message: 'Internal server error' },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+// export async function DELETE(
+//   request: NextRequest,
+//   { params }: { params: { id: string } }
+// ) {
+//   try {
+//     const { id } = params;
+//     const authHeader = request.headers.get('authorization');
+
+//     // Forward the request to the backend
+//     const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+//     const response = await fetch(`${API_BASE_URL}/api/faq/${id}`, {
+//       method: 'DELETE',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         ...(authHeader && { 'Authorization': authHeader }),
+//       },
+//     });
+
+//     const data = await response.json();
+
+//     if (!response.ok) {
+//       return NextResponse.json(
+//         { message: data.message || 'Failed to delete FAQ' },
+//         { status: response.status }
+//       );
+//     }
+
+//     return NextResponse.json(data);
+//   } catch (error) {
+//     console.error('FAQ API error:', error);
+//     return NextResponse.json(
+//       { message: 'Internal server error' },
+//       { status: 500 }
+//     );
+//   }
+// } 
+
+
+
+
+import { NextRequest, NextResponse } from "next/server";
+
+// ✅ Correct GET method syntax
+export async function GET(request: NextRequest, context: { params: { id: string } }) {
+  try {
+    const { id } = context.params;
+
     // Forward the request to the backend
-    const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+    const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
     const response = await fetch(`${API_BASE_URL}/api/faq/${id}`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -20,37 +134,32 @@ export async function GET(
 
     if (!response.ok) {
       return NextResponse.json(
-        { message: data.message || 'Failed to fetch FAQ' },
+        { message: data.message || "Failed to fetch FAQ" },
         { status: response.status }
       );
     }
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error('FAQ API error:', error);
+    console.error("FAQ API error:", error);
     return NextResponse.json(
-      { message: 'Internal server error' },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }
 }
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+// ✅ Correct PUT method syntax
+export async function PUT(request: NextRequest, context: { params: { id: string } }) {
   try {
-    const { id } = params;
+    const { id } = context.params;
     const body = await request.json();
-    const authHeader = request.headers.get('authorization');
 
-    // Forward the request to the backend
-    const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+    const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
     const response = await fetch(`${API_BASE_URL}/api/faq/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
-        ...(authHeader && { 'Authorization': authHeader }),
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
     });
@@ -59,36 +168,31 @@ export async function PUT(
 
     if (!response.ok) {
       return NextResponse.json(
-        { message: data.message || 'Failed to update FAQ' },
+        { message: data.message || "Failed to update FAQ" },
         { status: response.status }
       );
     }
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error('FAQ API error:', error);
+    console.error("FAQ PUT API error:", error);
     return NextResponse.json(
-      { message: 'Internal server error' },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+// ✅ Correct DELETE method syntax
+export async function DELETE(request: NextRequest, context: { params: { id: string } }) {
   try {
-    const { id } = params;
-    const authHeader = request.headers.get('authorization');
+    const { id } = context.params;
 
-    // Forward the request to the backend
-    const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000';
+    const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
     const response = await fetch(`${API_BASE_URL}/api/faq/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
-        ...(authHeader && { 'Authorization': authHeader }),
+        "Content-Type": "application/json",
       },
     });
 
@@ -96,16 +200,16 @@ export async function DELETE(
 
     if (!response.ok) {
       return NextResponse.json(
-        { message: data.message || 'Failed to delete FAQ' },
+        { message: data.message || "Failed to delete FAQ" },
         { status: response.status }
       );
     }
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error('FAQ API error:', error);
+    console.error("FAQ DELETE API error:", error);
     return NextResponse.json(
-      { message: 'Internal server error' },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }
