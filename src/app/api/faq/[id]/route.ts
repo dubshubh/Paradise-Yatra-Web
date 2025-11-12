@@ -113,21 +113,25 @@
 
 
 
-
 import { NextRequest, NextResponse } from "next/server";
 
-// ✅ Correct GET method syntax
-export async function GET(request: NextRequest, context: { params: { id: string } }) {
+// ✅ GET method (Next.js 15 compatible)
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
-    const { id } = context.params;
+    // ⬇️ Must await params in Next.js 15
+    const { id } = await context.params;
 
-    // Forward the request to the backend
-    const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
-    const response = await fetch(`${API_BASE_URL}/api/faq/${id}`, {
+    // Use EasyPanel backend URL from environment variable
+    const API_BASE_URL =
+      process.env.NEXT_PUBLIC_BACKEND_URL ||
+      "https://backendparadise-backend.glwcvg.easypanel.host/";
+
+    const response = await fetch(`${API_BASE_URL}api/faq/${id}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     });
 
     const data = await response.json();
@@ -141,7 +145,7 @@ export async function GET(request: NextRequest, context: { params: { id: string 
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("FAQ API error:", error);
+    console.error("FAQ GET API error:", error);
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }
@@ -149,18 +153,22 @@ export async function GET(request: NextRequest, context: { params: { id: string 
   }
 }
 
-// ✅ Correct PUT method syntax
-export async function PUT(request: NextRequest, context: { params: { id: string } }) {
+// ✅ PUT method (Next.js 15 compatible)
+export async function PUT(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
-    const { id } = context.params;
+    const { id } = await context.params;
     const body = await request.json();
 
-    const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
-    const response = await fetch(`${API_BASE_URL}/api/faq/${id}`, {
+    const API_BASE_URL =
+      process.env.NEXT_PUBLIC_BACKEND_URL ||
+      "https://backendparadise-backend.glwcvg.easypanel.host/";
+
+    const response = await fetch(`${API_BASE_URL}api/faq/${id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
 
@@ -183,17 +191,21 @@ export async function PUT(request: NextRequest, context: { params: { id: string 
   }
 }
 
-// ✅ Correct DELETE method syntax
-export async function DELETE(request: NextRequest, context: { params: { id: string } }) {
+// ✅ DELETE method (Next.js 15 compatible)
+export async function DELETE(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
-    const { id } = context.params;
+    const { id } = await context.params;
 
-    const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
-    const response = await fetch(`${API_BASE_URL}/api/faq/${id}`, {
+    const API_BASE_URL =
+      process.env.NEXT_PUBLIC_BACKEND_URL ||
+      "https://backendparadise-backend.glwcvg.easypanel.host/";
+
+    const response = await fetch(`${API_BASE_URL}api/faq/${id}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     });
 
     const data = await response.json();
